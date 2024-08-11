@@ -25,6 +25,7 @@ public class CameraOption : MonoBehaviour, INight
         GameManager.Instance.DeleteGameStateAction(LocalGameState.Paying, ResizeCamera);
     }
 
+    //카메라 사이즈를 컨테이너의 백그라운드 이미지에 맞추어서 적용합니다.
     public void ResizeCamera()
     {
         if (container == null) container = FindObjectOfType<PuzzleContainer>();

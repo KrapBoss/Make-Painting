@@ -13,7 +13,7 @@ public class PuzzleContainer : MonoBehaviour
     [SerializeField] Piece BackGround; // 백그라운드는 퍼즐 조각 목록으로 사용하지 않습니다.
     Capture2D capture;
 
-    //완성도
+    //맞춘 퍼즐 조각 수
     public float Perfection = 0;
     //총 퍼즐 조각 수
     public int CountPiece;
@@ -45,7 +45,7 @@ public class PuzzleContainer : MonoBehaviour
         //퍼즐 등록
         RegisterPiece();
         
-        BackGround.Fit(Vector2.zero);
+        BackGround.ActivePiece();
 
         Perfection = 0;
         //퍼즐을 등록 하여 사용자에게 보여준다.
@@ -80,34 +80,25 @@ public class PuzzleContainer : MonoBehaviour
         }
     }
 
-    //퍼즐 조각이 모두 맞는지 확인합니다.
+    //퍼즐 조각의 맞음을 전달받아 정보를 대신 갱신하여 줍니다.
     public void FitThePiece()
     {
-        int count = 0;
-
-        //모든 퍼즐 조각을 가져옵니다.
-        PieceData[] datas = PuzzleDictionary.Instance.GetAllPieceData();
-
-        if (datas != null)
-        {
-            count = datas.Where(x => !x.Activation).ToArray().Length;
-        }
-
         //퍼즐 조각의 수를 전달해줍니다.-------------------------------
-        if (Action_Fit != null) Action_Fit((datas.Length - count) / (float)datas.Length);
+        if (Action_Fit != null) Action_Fit(Perfection/CountPiece);
 
-        if (count > 0)
+        if (Perfection > CountPiece)
         {
-            Debug.Log($"게임 진행 {count}");
+            Debug.Log($"게임 진행 {Perfection}/{CountPiece}");
         }
         else
         {
-            Debug.Log($"게임 종료 {count}");
+            Debug.Log($"게임 종료 {Perfection}/{CountPiece}");
         }
     }
 
     private void OnDestroy()
     {
+        //저장한 컨테이너 조각을 제거합니다.
         PuzzleDictionary.Instance.Clear();
     }
 }

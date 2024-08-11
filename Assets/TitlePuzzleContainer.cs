@@ -13,10 +13,6 @@ public class TitlePuzzleContainer : MonoBehaviour, IOnOff
     public TitlePuzzleStart puzzleStartButton;
     public TitlePuzzleButton puzzleButton;
     public Transform parent;
-
-    //불러온 퍼즐들을 불러올 정보
-    public List<TitlePuzzleButton> puzzles = new List<TitlePuzzleButton>();
-
     #region ----------OnOff 버튼 명령-------------
     public bool Active { get; set; }
 
@@ -39,11 +35,9 @@ public class TitlePuzzleContainer : MonoBehaviour, IOnOff
     //퍼즐 플레이를 위한 버튼을 생성합니다.
     void LoadPuzzle()
     {
-        if(puzzles.Count > 0) { return; }
-
         CustomDebug.PrintW("싱글 플레이를 위한 퍼즐을 불러옵니다");
 
-        var so = Resources.LoadAll<PuzzleSO>(resourcePath);
+        var so = SoManager.Instance.GetSoPuzzles();
 
         foreach(var s in so) 
         {
@@ -51,8 +45,6 @@ public class TitlePuzzleContainer : MonoBehaviour, IOnOff
             b.name = s.name;
 
             b.Init(s, puzzleStartButton);
-
-            puzzles.Add(b);
         }
     }
 }

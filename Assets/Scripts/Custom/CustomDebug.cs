@@ -16,5 +16,7 @@ namespace Custom
         {
             Debug.LogError(str);
         }
+
+        public static void Exeption(string str) { throw new System.Exception(str); }
     }
 }

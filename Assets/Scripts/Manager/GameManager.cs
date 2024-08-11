@@ -1,6 +1,5 @@
 using Custom;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public enum LocalGameState
 }
 
 /// <summary>
-/// 1. 로컬에서 사용되는 게임 정보
+/// 각 클라이언트에서 실행되는 게임 순서에 관한 것이다
 /// </summary>
 public class GameManager : MonoBehaviour
 {
